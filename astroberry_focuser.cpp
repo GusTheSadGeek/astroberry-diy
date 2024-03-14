@@ -41,6 +41,8 @@
 // We declare an auto pointer to AstroberryFocuser.
 std::unique_ptr<AstroberryFocuser> astroberryFocuser(new AstroberryFocuser());
 
+int accellerationTime
+
 // create millisecond sleep macro
 #define msleep(milliseconds) usleep(milliseconds * 1000)
 
@@ -846,7 +848,10 @@ void AstroberryFocuser::TimerHit()
 		IDSetNumber(&FocusAbsPosNP, nullptr);
 	}
 
-	SetTimer(FocusStepDelayN[0].value);
+	if (accellerationTime > FocusStepDelayN[0].value)
+    	accellerationTime -= 1
+
+	SetTimer(accellerationTime);
 }
 
 bool AstroberryFocuser::ReverseFocuser(bool enabled)
@@ -943,7 +948,11 @@ IPState AstroberryFocuser::MoveAbsFocuser(uint32_t targetTicks)
 	focuserTicksRemaining = abs(targetTicks - FocusAbsPosN[0].value);
 	DEBUGF(INDI::Logger::DBG_SESSION, "Focuser is moving %s to position %d.", directionName, targetTicks);
 
-	SetTimer(FocusStepDelayN[0].value);
+
+    accellerationTime = FocusStepDelayN[0].value * 10
+
+
+	SetTimer(accellerationTime);
 
 	return IPS_BUSY;
 }
