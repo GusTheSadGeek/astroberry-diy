@@ -952,7 +952,7 @@ IPState AstroberryFocuser::MoveAbsFocuser(uint32_t targetTicks)
 
 
     accellerationTime = FocusStepDelayN[0].value * 20;
-	if accellerationTime > 10000 {
+	if (accellerationTime > 10000) {
 		accellerationTime = 10000
 	}
 
