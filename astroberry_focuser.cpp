@@ -42,7 +42,7 @@
 std::unique_ptr<AstroberryFocuser> astroberryFocuser(new AstroberryFocuser());
 
 // create millisecond sleep macro
-#define msleep(milliseconds) usleep(milliseconds * 1000)
+#define msleep(milliseconds) usleep(milliseconds * 100)
 
 #define MINMAX_MIN_POS 0 // lowest limit for focuser position
 #define MINMAX_MAX_POS 100000 // highest limit for focuser position
