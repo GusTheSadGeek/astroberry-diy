@@ -845,9 +845,9 @@ void AstroberryFocuser::TimerHit()
 		FocusAbsPosN[0].value += 1 * stepperDirection;
 		IDSetNumber(&FocusAbsPosNP, nullptr);
 	}
-		accellerationTime
+		
 	if (accellerationTime > FocusStepDelayN[0].value)
-    	accellerationTime -= 1
+    	accellerationTime -= 1;
 
 	SetTimer(accellerationTime);
 }
@@ -947,7 +947,7 @@ IPState AstroberryFocuser::MoveAbsFocuser(uint32_t targetTicks)
 	DEBUGF(INDI::Logger::DBG_SESSION, "Focuser is moving %s to position %d.", directionName, targetTicks);
 
 
-    accellerationTime = FocusStepDelayN[0].value * 10
+    accellerationTime = FocusStepDelayN[0].value * 10;
 
 
 	SetTimer(accellerationTime);
