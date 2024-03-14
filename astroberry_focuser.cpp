@@ -144,11 +144,11 @@ inline bool file_exist (const char *name) {
 bool AstroberryFocuser::Connect()
 {
 	if (file_exist("/dev/gpiochip4")) {
-		DEBUG(INDI::Logger::DBG_SESSION, "Deteceted gpiochip4 - so assuming pi5.");
+		DEBUG(INDI::Logger::DBG_SESSION, "Detected /dev/gpiochip4 - so assuming pi5.");
 		chip = gpiod_chip_open("/dev/gpiochip4");   // gpiochip4 for pi5
 	} else {
 		chip = gpiod_chip_open("/dev/gpiochip0");   // gpiochip0 for pi2/3/4  
-		DEBUG(INDI::Logger::DBG_SESSION, "Using gpiochip0.");
+		DEBUG(INDI::Logger::DBG_SESSION, "Using /dev/gpiochip0.");
 	}
 
 	if (!chip)
@@ -291,7 +291,7 @@ bool AstroberryFocuser::initProperties()
 	IUFillNumberVector(&StepperStandbyTimeNP, StepperStandbyTimeN, 1, getDeviceName(), "STEPPER_STANDBY_DELAY", "Standby Delay", OPTIONS_TAB, IP_RW, 0, IPS_IDLE);	
 
 	// Step delay setting
-	IUFillNumber(&FocusStepDelayN[0], "FOCUS_STEPDELAY_VALUE", "microseconds", "%0.0f", 100, 10000, 100, 500);
+	IUFillNumber(&FocusStepDelayN[0], "FOCUS_STEPDELAY_VALUE", "microseconds", "%d", 100, 10000, 100, 500);
 	IUFillNumberVector(&FocusStepDelayNP, FocusStepDelayN, 1, getDeviceName(), "FOCUS_STEPDELAY", "Step Delay", OPTIONS_TAB, IP_RW, 0, IPS_IDLE);
 
 	// Active telescope setting
