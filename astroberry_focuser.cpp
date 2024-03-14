@@ -42,7 +42,8 @@
 std::unique_ptr<AstroberryFocuser> astroberryFocuser(new AstroberryFocuser());
 
 // create millisecond sleep macro
-#define msleep(milliseconds) usleep(milliseconds * 100)
+#define msleep(milliseconds) usleep(milliseconds * 1000)
+#define usleep(microseconds) usleep(microseconds)
 
 #define MINMAX_MIN_POS 0 // lowest limit for focuser position
 #define MINMAX_MAX_POS 100000 // highest limit for focuser position
@@ -290,7 +291,7 @@ bool AstroberryFocuser::initProperties()
 	IUFillNumberVector(&StepperStandbyTimeNP, StepperStandbyTimeN, 1, getDeviceName(), "STEPPER_STANDBY_DELAY", "Standby Delay", OPTIONS_TAB, IP_RW, 0, IPS_IDLE);	
 
 	// Step delay setting
-	IUFillNumber(&FocusStepDelayN[0], "FOCUS_STEPDELAY_VALUE", "milliseconds", "%0.0f", 1, 10, 1, 1);
+	IUFillNumber(&FocusStepDelayN[0], "FOCUS_STEPDELAY_VALUE", "microseconds", "%0.0f", 100, 1000, 50, 100);
 	IUFillNumberVector(&FocusStepDelayNP, FocusStepDelayN, 1, getDeviceName(), "FOCUS_STEPDELAY", "Step Delay", OPTIONS_TAB, IP_RW, 0, IPS_IDLE);
 
 	// Active telescope setting
@@ -849,7 +850,7 @@ void AstroberryFocuser::TimerHit()
 	if (accellerationTime > FocusStepDelayN[0].value)
     	accellerationTime -= 1;
 
-	SetTimer(accellerationTime);
+	SetTimer(0.1);
 }
 
 bool AstroberryFocuser::ReverseFocuser(bool enabled)
@@ -966,7 +967,7 @@ void AstroberryFocuser::stepMotor()
 	// step on
 	gpiod_line_set_value(gpio_step, 1);
 	// wait
-	msleep(accellerationTime);
+	usleep(accellerationTime);
 	// step off
 	gpiod_line_set_value(gpio_step, 0);
 }
