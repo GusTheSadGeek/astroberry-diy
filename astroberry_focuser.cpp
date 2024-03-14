@@ -849,8 +849,7 @@ void AstroberryFocuser::TimerHit()
 		
 	if (accellerationTime > FocusStepDelayN[0].value) 
 	{
-		d = accellerationTime - FocusStepDelayN[0].value
-    	accellerationTime -= (d / 10) + 1;
+    	accellerationTime -= ((accellerationTime - FocusStepDelayN[0].value) / 10) + 1;
 	}
 
 	SetTimer(accellerationTime/1000.0);
