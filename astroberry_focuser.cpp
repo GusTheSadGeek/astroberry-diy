@@ -850,7 +850,7 @@ void AstroberryFocuser::TimerHit()
 	if (accellerationTime > FocusStepDelayN[0].value)
     	accellerationTime -= 1;
 
-	SetTimer(0.1);
+	SetTimer(accellerationTime/1000.0);
 }
 
 bool AstroberryFocuser::ReverseFocuser(bool enabled)
@@ -951,7 +951,7 @@ IPState AstroberryFocuser::MoveAbsFocuser(uint32_t targetTicks)
     accellerationTime = FocusStepDelayN[0].value * 10;
 
 
-	SetTimer(accellerationTime);
+	SetTimer(accellerationTime/1000.0);
 
 	return IPS_BUSY;
 }
