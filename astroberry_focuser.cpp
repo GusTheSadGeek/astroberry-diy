@@ -143,11 +143,11 @@ inline bool file_exist (const char *name) {
 bool AstroberryFocuser::Connect()
 {
 	if (file_exist("/dev/gpiochip4")) {
-		DEBUGF(INDI::Logger::DBG_SESSION, "Deteceted gpiochip4 - so assuming pi5. %d" , 0);
+		DEBUG(INDI::Logger::DBG_SESSION, "Deteceted gpiochip4 - so assuming pi5.");
 		chip = gpiod_chip_open("/dev/gpiochip4");   // gpiochip4 for pi5
 	} else {
 		chip = gpiod_chip_open("/dev/gpiochip0");   // gpiochip0 for pi2/3/4  
-		DEBUGF(INDI::Logger::DBG_SESSION, "Using gpiochip0. %d",0);
+		DEBUG(INDI::Logger::DBG_SESSION, "Using gpiochip0.");
 	}
 
 	if (!chip)
@@ -806,6 +806,7 @@ void AstroberryFocuser::TimerHit()
 		// If we are buly then stop the standby timer to prevent going into standby before motion has stopped.
 		IERmTimer(stepperStandbyID);
 		stepperStandbyID=-1;
+		DEBUG(INDI::Logger::DBG_SESSION, "Standby timer cancelled due to movement");
 	}
 
 	// handle reverse motion
