@@ -135,9 +135,9 @@ const char * AstroberryFocuser::getDefaultName()
         return (char *)"Astroberry Focuser";
 }
 
-inline bool file_exist (const std::string& name) {
+inline bool file_exist (const char *name) {
   struct stat buffer;   
-  return (stat (name.c_str(), &buffer) == 0); 
+  return (stat (name, &buffer) == 0); 
 }
 
 bool AstroberryFocuser::Connect()

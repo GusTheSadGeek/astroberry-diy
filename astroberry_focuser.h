@@ -61,7 +61,6 @@ private:
 	void updateTemperature();
 	int temperatureCompensationID { -1 };
 	void temperatureCompensation();
-//    bool file_exist(const std::string& name);
 
 	ISwitch FocusResolutionS[6];
 	ISwitchVectorProperty FocusResolutionSP;
