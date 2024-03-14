@@ -291,7 +291,7 @@ bool AstroberryFocuser::initProperties()
 	IUFillNumberVector(&StepperStandbyTimeNP, StepperStandbyTimeN, 1, getDeviceName(), "STEPPER_STANDBY_DELAY", "Standby Delay", OPTIONS_TAB, IP_RW, 0, IPS_IDLE);	
 
 	// Step delay setting
-	IUFillNumber(&FocusStepDelayN[0], "FOCUS_STEPDELAY_VALUE", "microseconds", "%0.0f", 100, 1000, 50, 100);
+	IUFillNumber(&FocusStepDelayN[0], "FOCUS_STEPDELAY_VALUE", "microseconds", "%0.0f", 100, 10000, 100, 500);
 	IUFillNumberVector(&FocusStepDelayNP, FocusStepDelayN, 1, getDeviceName(), "FOCUS_STEPDELAY", "Step Delay", OPTIONS_TAB, IP_RW, 0, IPS_IDLE);
 
 	// Active telescope setting
@@ -950,7 +950,7 @@ IPState AstroberryFocuser::MoveAbsFocuser(uint32_t targetTicks)
 	DEBUGF(INDI::Logger::DBG_SESSION, "Focuser is moving %s to position %d.", directionName, targetTicks);
 
 
-    accellerationTime = FocusStepDelayN[0].value * 20;
+    accellerationTime = FocusStepDelayN[0].value * 5;
 	if (accellerationTime > 10000) {
 		accellerationTime = 10000;
 	}
