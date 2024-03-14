@@ -849,7 +849,7 @@ void AstroberryFocuser::TimerHit()
 		
 
 	if (focuserTicksRemaining < 100) {
-		accellerationTime += 5
+		accellerationTime += 5;
 	} else {
 		if (accellerationTime > FocusStepDelayN[0].value) 
 		{
