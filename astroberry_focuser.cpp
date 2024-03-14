@@ -135,9 +135,18 @@ const char * AstroberryFocuser::getDefaultName()
         return (char *)"Astroberry Focuser";
 }
 
+inline bool file_exist (const std::string& name) {
+  struct stat buffer;   
+  return (stat (name.c_str(), &buffer) == 0); 
+}
+
 bool AstroberryFocuser::Connect()
 {
-	chip = gpiod_chip_open("/dev/gpiochip0");
+	if file_exist("/dev/gpiochip4") 
+		chip = gpiod_chip_open("/dev/gpiochip4");   // gpiochip4 for pi5
+	else
+		chip = gpiod_chip_open("/dev/gpiochip0");   // gpiochip0 for pi2/3/4  
+
 	if (!chip)
 	{
 		DEBUG(INDI::Logger::DBG_ERROR, "Problem initiating Astroberry Focuser.");
@@ -788,6 +797,12 @@ void AstroberryFocuser::TimerHit()
 			DEBUGF(INDI::Logger::DBG_SESSION, "Focuser going standby in %d seconds", (int) IERemainingTimer(stepperStandbyID) /  1000);
 		}
 		return;
+	}
+
+	if (stepperStandbyID) {
+		// If we are buly then stop the standby timer to prevent going into standby before motion has stopped.
+		IERmTimer(stepperStandbyID);
+		stepperStandbyID=-1;
 	}
 
 	// handle reverse motion
