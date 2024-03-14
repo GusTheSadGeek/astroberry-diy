@@ -142,10 +142,13 @@ inline bool file_exist (const std::string& name) {
 
 bool AstroberryFocuser::Connect()
 {
-	if file_exist("/dev/gpiochip4") 
+	if file_exist("/dev/gpiochip4") {
+		DEBUGF(INDI::Logger::DBG_SESSION, "Deteceted gpiochip4 - so assuming pi5");
 		chip = gpiod_chip_open("/dev/gpiochip4");   // gpiochip4 for pi5
-	else
+	} else {
 		chip = gpiod_chip_open("/dev/gpiochip0");   // gpiochip0 for pi2/3/4  
+		DEBUGF(INDI::Logger::DBG_SESSION, "Using gpiochip0);
+	}
 
 	if (!chip)
 	{
