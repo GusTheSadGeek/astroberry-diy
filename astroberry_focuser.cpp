@@ -966,7 +966,7 @@ void AstroberryFocuser::stepMotor()
 	// step on
 	gpiod_line_set_value(gpio_step, 1);
 	// wait
-	msleep(FocusStepDelayN[0].value);
+	msleep(accellerationTime);
 	// step off
 	gpiod_line_set_value(gpio_step, 0);
 }
