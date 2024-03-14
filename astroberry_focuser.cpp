@@ -41,8 +41,6 @@
 // We declare an auto pointer to AstroberryFocuser.
 std::unique_ptr<AstroberryFocuser> astroberryFocuser(new AstroberryFocuser());
 
-int accellerationTime
-
 // create millisecond sleep macro
 #define msleep(milliseconds) usleep(milliseconds * 1000)
 
@@ -847,7 +845,7 @@ void AstroberryFocuser::TimerHit()
 		FocusAbsPosN[0].value += 1 * stepperDirection;
 		IDSetNumber(&FocusAbsPosNP, nullptr);
 	}
-
+		accellerationTime
 	if (accellerationTime > FocusStepDelayN[0].value)
     	accellerationTime -= 1
 

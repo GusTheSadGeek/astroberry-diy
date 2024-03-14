@@ -100,9 +100,11 @@ private:
 	int backlashTicksRemaining;
 	int focuserTicksRemaining;
 	int stepperDirection = 1;
-	
 	int resolution = 1;
 	float lastTemperature;
+
+	int accellerationTime;
+
 };
 
 #endif
