@@ -847,9 +847,14 @@ void AstroberryFocuser::TimerHit()
 		IDSetNumber(&FocusAbsPosNP, nullptr);
 	}
 		
-	if (accellerationTime > FocusStepDelayN[0].value) 
-	{
-    	accellerationTime -= ((accellerationTime - FocusStepDelayN[0].value) / 10) + 1;
+
+	if (focuserTicksRemaining < 100) {
+		accellerationTime += 5
+	} else {
+		if (accellerationTime > FocusStepDelayN[0].value) 
+		{
+			accellerationTime -= ((accellerationTime - FocusStepDelayN[0].value) / 10) + 1;
+		}
 	}
 
 	SetTimer(accellerationTime/1000.0);
