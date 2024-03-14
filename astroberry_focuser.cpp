@@ -805,7 +805,7 @@ void AstroberryFocuser::TimerHit()
 	if (stepperStandbyID) {
 		// If we are buly then stop the standby timer to prevent going into standby before motion has stopped.
 		IERmTimer(stepperStandbyID);
-		stepperStandbyID=-1;
+		stepperStandbyID=0;
 		DEBUG(INDI::Logger::DBG_SESSION, "Standby timer cancelled due to movement");
 	}
 
